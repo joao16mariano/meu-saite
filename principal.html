@@ -1,4 +1,5 @@
 ﻿
+
     <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -151,6 +152,24 @@
     }
 
     .logout-button:hover {
+      background: #ff3742;
+    }
+
+      .logout-button1 {
+      position: fixed;
+      top: 20px;
+      right: 100px;
+      padding: 10px 20px;
+      background: #ff4757;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 14px;
+      z-index: 100;
+    }	
+
+    .logout-button1:hover {
       background: #ff3742;
     }
 
@@ -400,7 +419,9 @@
 </head>
 <body>
   <button id="logoutButton" class="logout-button">Sair</button>
-
+<button class="logout-button1" onclick="window.location.href='area/index.html'">
+  Area
+</button>
   <img src="img/Luzdaarea.png" width="864" height="150" style="margin-bottom: 30px;">
 
   <div class="controle-botao" style="flex-direction: column; align-items: center;">
