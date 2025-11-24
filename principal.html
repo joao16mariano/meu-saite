@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿
+    <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
@@ -162,8 +163,8 @@
       font-size: 45px;
       border-radius: 12px;
       cursor: pointer;
-      transition: all 0.3s ease;	  
-      
+      transition: all 0.3s ease;          
+
     }
     .ligado {
      background: url(img/ligado.png) no-repeat left bottom;
@@ -181,8 +182,6 @@
 
     .status-button-led5 {
       width: 400px;
-
-
       height: 160px;
       color: white;
       border: none;
@@ -386,8 +385,8 @@
     .hidden {
       display: none !important;
     }
-	
-	.controle-botao {
+
+        .controle-botao {
       width: 880px;
       max-width: 1820px;
    background: linear-gradient(135deg, #39ff14 0%, #000000 100%);
@@ -401,7 +400,7 @@
 </head>
 <body>
   <button id="logoutButton" class="logout-button">Sair</button>
-  
+
   <img src="img/Luzdaarea.png" width="864" height="150" style="margin-bottom: 30px;">
 
   <div class="controle-botao" style="flex-direction: column; align-items: center;">
@@ -520,15 +519,14 @@
 
   <script>
     const firebaseConfig = {
-      // Sua configuração do Firebase aqui
-	   apiKey: "AIzaSyAIRUVzpMW2sHSE3TyDBCYsQqNatjzl7OE",
-  authDomain: "portao-85a3c.firebaseapp.com",
-  databaseURL: "https://portao-85a3c-default-rtdb.firebaseio.com",
-  projectId: "portao-85a3c",
-  storageBucket: "portao-85a3c.firebasestorage.app",
-  messagingSenderId: "364450852654",
-  appId: "1:364450852654:web:f9fbe5db3d2d76eff6d4bf",
-  measurementId: "G-8JD6STQ59P"
+      apiKey: "AIzaSyAIRUVzpMW2sHSE3TyDBCYsQqNatjzl7OE",
+      authDomain: "portao-85a3c.firebaseapp.com",
+      databaseURL: "https://portao-85a3c-default-rtdb.firebaseio.com",
+      projectId: "portao-85a3c",
+      storageBucket: "portao-85a3c.firebasestorage.app",
+      messagingSenderId: "364450852654",
+      appId: "1:364450852654:web:f9fbe5db3d2d76eff6d4bf",
+      measurementId: "G-8JD6STQ59P"
     };
 
     firebase.initializeApp(firebaseConfig);
@@ -538,6 +536,27 @@
     const logoutButton = document.getElementById('logoutButton');
     const cameraSlider = document.getElementById('cameraSlider');
     const cameraValue = document.getElementById('cameraValue');
+
+    // Variáveis de controle para o slider
+    let isUserSliding = false;
+    let debounceTimer;
+
+    // Controle do slider da câmera - CORRIGIDO
+    cameraSlider.addEventListener('input', (e) => {
+      isUserSliding = true;
+      const value = e.target.value;
+      cameraValue.textContent = value + '°';
+
+      // Debounce para evitar muitas atualizações no Firebase
+      clearTimeout(debounceTimer);
+      debounceTimer = setTimeout(() => {
+        db.ref("/camera1").set(parseInt(value));
+        // Reset da flag após um breve delay
+        setTimeout(() => {
+          isUserSliding = false;
+        }, 500);
+      }, 100);
+    });
 
     // Verificar estado de autenticação
     auth.onAuthStateChanged((user) => {
@@ -553,19 +572,6 @@
     // Logout
     logoutButton.addEventListener('click', () => {
       auth.signOut();
-    });
-
-    // Controle do slider da câmera - CORRIGIDO para camera1
-    let debounceTimer;
-    cameraSlider.addEventListener('input', (e) => {
-      const value = e.target.value;
-      cameraValue.textContent = value + '°';
-      
-      // Debounce para evitar muitas atualizações no Firebase
-      clearTimeout(debounceTimer);
-      debounceTimer = setTimeout(() => {
-        db.ref("/camera1").set(parseInt(value));
-      }, 100);
     });
 
     // Função para iniciar a aplicação após login
@@ -643,9 +649,10 @@
         const btnPrincipal = document.getElementById('ligarDesligar');
 
         // Atualizar slider da câmera - CORRIGIDO para camera1
-        if (d.camera1 !== undefined && d.camera1 !== null) {
+        // SOMENTE se não estiver sendo controlado pelo usuário
+        if (d.camera1 !== undefined && d.camera1 !== null && !isUserSliding) {
           const cameraAngle = parseInt(d.camera1);
-          if (cameraAngle >= 0 && cameraAngle <= 90) {
+          if (cameraAngle >= 0 && cameraAngle <= 180) {
             cameraSlider.value = cameraAngle;
             cameraValue.textContent = cameraAngle + '°';
           }
