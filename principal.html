@@ -1,6 +1,4 @@
-﻿
-
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
@@ -136,43 +134,33 @@
       color: #fff;
       font-weight: bold;
     }
+	
+	/* Nova classe para os botões da seção de páginas */
+.pagina-botao {
+    width: 150px; /* Largura fixa */
+    height: 40px; /* Altura fixa */
+    padding: 10px 20px;
+    background: #033;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px;
+    margin: 5px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transition: all 0.3s ease;
+}
 
-    .logout-button {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      padding: 10px 20px;
-      background: #ff4757;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      font-size: 14px;
-      z-index: 100;
-    }
-
-    .logout-button:hover {
-      background: #ff3742;
-    }
-
-      .logout-button1 {
-      position: fixed;
-      top: 20px;
-      right: 100px;
-      padding: 10px 20px;
-      background: #ff4757;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      font-size: 14px;
-      z-index: 100;
-    }	
-
-    .logout-button1:hover {
-      background: #ff3742;
-    }
-
+.pagina-botao:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(1.05);
+}
     .status-button {
       width: 380px;
       height: 160px;
@@ -182,8 +170,8 @@
       font-size: 45px;
       border-radius: 12px;
       cursor: pointer;
-      transition: all 0.3s ease;          
-
+      transition: all 0.3s ease;	  
+      
     }
     .ligado {
      background: url(img/ligado.png) no-repeat left bottom;
@@ -404,8 +392,8 @@
     .hidden {
       display: none !important;
     }
-
-        .controle-botao {
+	
+	.controle-botao {
       width: 880px;
       max-width: 1820px;
    background: linear-gradient(135deg, #39ff14 0%, #000000 100%);
@@ -415,15 +403,96 @@
       text-align: center;
       border: 1px solid white;
     }
+	 .pagina {
+      width: 880px;
+      max-width: 1820px;
+     background: linear-gradient(135deg, #ff7a00 0%, #000000 100%);
+
+      padding: 30px;
+      border-radius: 12px;
+      margin: 1px 0;
+      text-align: center;
+      border: 1px solid white;
+    }
+	
+	 /* Botão de logout */
+    .logout-btn {      
+       position: fixed;
+      top: 20px;
+      right: 20px;
+      padding: 10px 20px;
+      background: #ff4757;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 14px;
+      z-index: 100;
+    }
+    
+    .logout-btn:hover {
+      background: #ff3742;
+      transform: scale(1.05);
+    }
   </style>
 </head>
 <body>
-  <button id="logoutButton" class="logout-button">Sair</button>
-<button class="logout-button1" onclick="window.location.href='area/index.html'">
-  Area
-</button>
+  <!-- Loading Screen -->
+  <div id="loadingScreen" class="loading-screen">
+    <div class="loading-spinner"></div>
+  </div> 
+  
+  <!-- Botão de logout CORRIGIDO -->
+  <button id="logoutBtn" class="logout-btn">Sair</button>
+  
   <img src="img/Luzdaarea.png" width="864" height="150" style="margin-bottom: 30px;">
+  
+  <div class="pagina">
+    <h2>Páginas hospedadas no gitHub</h2>
+    <!-- Botão de Logout -->
+ <div>. </div>
+<button class="pagina-botao" onclick="window.location.href='../index.html'">
+ Portão
+</button>
 
+<button class="pagina-botao" onclick="window.location.href='../index.html'">
+ Bebedouro
+</button>
+
+<button class="pagina-botao" onclick="window.location.href='area/index.html'">
+Luz Área
+</button>
+
+<button class="pagina-botao" onclick="window.location.href='../index.html'">
+ Inversor
+</button>
+
+<button class="pagina-botao" onclick="window.location.href='../index.html'">
+ Computador
+</button>
+
+<button class="pagina-botao" onclick="window.location.href='../index.html'">
+ TV Sala
+</button>
+
+<button class="pagina-botao" onclick="window.location.href='../index.html'">
+ Inversor
+</button>
+
+<button class="pagina-botao" onclick="window.location.href='../index.html'">
+ C. d'água
+</button>
+
+<button class="pagina-botao" onclick="window.location.href='../index.html'">
+ Canteiro
+</button>
+
+<button class="pagina-botao" onclick="window.location.href='../index.html'">
+Tutorial
+</button>
+
+    
+  </div>
   <div class="controle-botao" style="flex-direction: column; align-items: center;">
     <div style="display: flex; flex-direction: column; align-items: center; gap: 30px;">
       <div style="display: flex; justify-content: center; align-items: center; gap: 190px;">
@@ -554,30 +623,10 @@
     const db = firebase.database();
     const auth = firebase.auth();
 
-    const logoutButton = document.getElementById('logoutButton');
+    // CORREÇÃO: Usar o ID correto do botão
+    const logoutBtn = document.getElementById('logoutBtn');
     const cameraSlider = document.getElementById('cameraSlider');
     const cameraValue = document.getElementById('cameraValue');
-
-    // Variáveis de controle para o slider
-    let isUserSliding = false;
-    let debounceTimer;
-
-    // Controle do slider da câmera - CORRIGIDO
-    cameraSlider.addEventListener('input', (e) => {
-      isUserSliding = true;
-      const value = e.target.value;
-      cameraValue.textContent = value + '°';
-
-      // Debounce para evitar muitas atualizações no Firebase
-      clearTimeout(debounceTimer);
-      debounceTimer = setTimeout(() => {
-        db.ref("/camera1").set(parseInt(value));
-        // Reset da flag após um breve delay
-        setTimeout(() => {
-          isUserSliding = false;
-        }, 500);
-      }, 100);
-    });
 
     // Verificar estado de autenticação
     auth.onAuthStateChanged((user) => {
@@ -590,9 +639,27 @@
       }
     });
 
-    // Logout
-    logoutButton.addEventListener('click', () => {
-      auth.signOut();
+    // CORREÇÃO: Logout com o elemento correto
+    logoutBtn.addEventListener('click', () => {
+      auth.signOut().then(() => {
+        console.log('Usuário deslogado com sucesso');
+        window.location.href = 'index.html';
+      }).catch((error) => {
+        console.error('Erro ao fazer logout:', error);
+      });
+    });
+
+    // Controle do slider da câmera - CORRIGIDO para camera1
+    let debounceTimer;
+    cameraSlider.addEventListener('input', (e) => {
+      const value = e.target.value;
+      cameraValue.textContent = value + '°';
+      
+      // Debounce para evitar muitas atualizações no Firebase
+      clearTimeout(debounceTimer);
+      debounceTimer = setTimeout(() => {
+        db.ref("/camera1").set(parseInt(value));
+      }, 100);
     });
 
     // Função para iniciar a aplicação após login
@@ -670,10 +737,9 @@
         const btnPrincipal = document.getElementById('ligarDesligar');
 
         // Atualizar slider da câmera - CORRIGIDO para camera1
-        // SOMENTE se não estiver sendo controlado pelo usuário
-        if (d.camera1 !== undefined && d.camera1 !== null && !isUserSliding) {
+        if (d.camera1 !== undefined && d.camera1 !== null) {
           const cameraAngle = parseInt(d.camera1);
-          if (cameraAngle >= 0 && cameraAngle <= 180) {
+          if (cameraAngle >= 0 && cameraAngle <= 90) {
             cameraSlider.value = cameraAngle;
             cameraValue.textContent = cameraAngle + '°';
           }
