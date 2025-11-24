@@ -300,23 +300,44 @@
       0% { transform: rotate(0deg); }
       100% { transform: rotate(360deg); }
     }
+	
+	/* Nova classe para os botões da seção de páginas */
+.pagina-botao {
+    width: 150px; /* Largura fixa */
+    height: 40px; /* Altura fixa */
+    padding: 10px 20px;
+    background: #033;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px;
+    margin: 5px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transition: all 0.3s ease;
+}
 
-	  .logout-button1 {
-      position: fixed;
-      top: 20px;
-      right: 100px;
-      padding: 10px 20px;
-      background: #ff4757;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      font-size: 14px;
-      z-index: 100;
-    }	
+.pagina-botao:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(1.05);
+}
 
-    .logout-button1:hover {
-      background: #ff3742;
+	 .pagina {
+      width: 880px;
+      max-width: 1820px;
+     background: linear-gradient(135deg, #ff7a00 0%, #000000 100%);
+
+      padding: 30px;
+      border-radius: 12px;
+      margin: 1px 0;
+      text-align: center;
+      border: 1px solid white;
     }
 
   </style>
@@ -329,12 +350,55 @@
 
   <!-- Botão de Logout -->
   <button id="logoutBtn" class="logout-btn">Sair</button>
-
-	<button class="logout-button1" onclick="window.location.href='../index.html'">
-  Voltar
-</button>
   
   <img src="img/Luzdaarea.png" width="864" height="150" style="margin-bottom: 30px;">
+  
+  <div class="pagina">
+    <h2>Páginas hospedadas no gitHub</h2>
+    <!-- Botão de Logout -->
+ <div>. </div>
+<button class="pagina-botao" onclick="window.location.href='../index.html'">
+ Portão
+</button>
+
+<button class="pagina-botao" onclick="window.location.href='../index.html'">
+ Bebedouro
+</button>
+
+<button class="pagina-botao" onclick="window.location.href='area/index.html'">
+Luz Área
+</button>
+
+<button class="pagina-botao" onclick="window.location.href='../index.html'">
+ Inversor
+</button>
+
+<button class="pagina-botao" onclick="window.location.href='../index.html'">
+ Computador
+</button>
+
+<button class="pagina-botao" onclick="window.location.href='../index.html'">
+ TV Sala
+</button>
+
+<button class="pagina-botao" onclick="window.location.href='../index.html'">
+ Inversor
+</button>
+
+<button class="pagina-botao" onclick="window.location.href='../index.html'">
+ C. d'água
+</button>
+
+<button class="pagina-botao" onclick="window.location.href='../index.html'">
+ Canteiro
+</button>
+
+<button class="pagina-botao" onclick="window.location.href='../index.html'">
+Tutorial
+</button>
+
+    
+  </div>
   
   <div class="controle-botao" style="flex-direction: column; align-items: center;">
     <div style="display: flex; flex-direction: column; align-items: center; gap: 30px;">
@@ -415,14 +479,15 @@
   <script>
     // Configuração do Firebase
     const firebaseConfig = {
-      apiKey: "AIzaSyAIRUVzpMW2sHSE3TyDBCYsQqNatjzl7OE",
-      authDomain: "portao-85a3c.firebaseapp.com",
-      databaseURL: "https://portao-85a3c-default-rtdb.firebaseio.com",
-      projectId: "portao-85a3c",
-      storageBucket: "portao-85a3c.firebasestorage.app",
-      messagingSenderId: "364450852654",
-      appId: "1:364450852654:web:f9fbe5db3d2d76eff6d4bf",
-      measurementId: "G-8JD6STQ59P"
+    // 🔧 Substitua por suas credenciais
+  apiKey: "AIzaSyDK6BihUGbjJAUCog5ar10xrLIEoW3DrpU",
+  authDomain: "luzdaarea.firebaseapp.com",
+  databaseURL: "https://luzdaarea-default-rtdb.firebaseio.com",
+  projectId: "luzdaarea",
+  storageBucket: "luzdaarea.firebasestorage.app",
+  messagingSenderId: "176018884427",
+  appId: "1:176018884427:web:2ad49bf76602f505830ace",
+  measurementId: "G-8PX143ZRBZ"
     };
 
     // Inicializar Firebase
@@ -545,7 +610,7 @@
 
         // LED5 (btnLed5)
         if (d.rele !== undefined) {
-          const ligado = d.rele === "1";
+          const ligado = d.rele === "0";
           btnLed5.classList.remove("vermelho", "ligado", "desligado");
           btnLed5.classList.add(ligado ? "vermelho" : "desligado");
           if (ligado) btnLed5.classList.add("ligado");
@@ -604,5 +669,4 @@
     }
   </script>
 </body>
-
 </html>
