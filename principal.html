@@ -1,4 +1,5 @@
-<!DOCTYPE html>
+
+   <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
@@ -134,46 +135,45 @@
       color: #fff;
       font-weight: bold;
     }
-	
-	/* Nova classe para os botões da seção de páginas */
-.pagina-botao {
-    width: 150px;
-    height: 40px;
-    padding: 30px 95px;
-    background: #033;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 18px;
-    margin: 5px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    transition: all 0.15s ease;
-    box-shadow: 
-        0 6px 0 #022,
-        0 0 0 2px white;
-    position: relative;
-}
 
-.pagina-botao:hover {
-    background: rgba(255, 255, 255, 0.3);
-    transform: translateY(6px);
-    box-shadow: 
-        0 0 0 #022,
-        0 0 0 2px white;
-}
+    /* Nova classe para os botões da seção de páginas */
+    .pagina-botao {
+        width: 150px;
+        height: 40px;
+        padding: 30px 95px;
+        background: #033;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 18px;
+        margin: 5px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        transition: all 0.15s ease;
+        box-shadow: 
+            0 6px 0 #022,
+            0 0 0 2px white;
+        position: relative;
+    }
 
-.pagina-botao:active {
-    transform: translateY(6px) scale(0.98);
-    transition: all 0.1s ease;
-}
+    .pagina-botao:hover {
+        background: rgba(255, 255, 255, 0.3);
+        transform: translateY(6px);
+        box-shadow: 
+            0 0 0 #022,
+            0 0 0 2px white;
+    }
 
+    .pagina-botao:active {
+        transform: translateY(6px) scale(0.98);
+        transition: all 0.1s ease;
+    }
 
     .status-button {
       width: 380px;
@@ -184,8 +184,7 @@
       font-size: 45px;
       border-radius: 12px;
       cursor: pointer;
-      transition: all 0.3s ease;	  
-      
+      transition: all 0.3s ease;          
     }
     .ligado {
      background: url(img/ligado.png) no-repeat left bottom;
@@ -259,7 +258,7 @@
     .agendamentos, .info, .sensores {
       width: 880px;
       max-width: 1820px;
-   background: linear-gradient(135deg, #ff7a00 0%, #000000 100%);
+      background: linear-gradient(135deg, #ff7a00 0%, #000000 100%);
       padding: 30px;
       border-radius: 12px;
       margin: 15px 0;
@@ -325,7 +324,7 @@
     .separador {
       height: 4px;
       margin: 30px 0;
-     background: linear-gradient(135deg, #ff7a00 0%, #000000 100%);
+      background: linear-gradient(135deg, #ff7a00 0%, #000000 100%);
       box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
       border-radius: 4px;
     }
@@ -406,30 +405,30 @@
     .hidden {
       display: none !important;
     }
-	
-	.controle-botao {
-      width: 880px;
-      max-width: 1820px;
-   background: linear-gradient(135deg, #39ff14 0%, #000000 100%);
-      padding: 30px;
-      border-radius: 12px;
-      margin: 1px 0;
-      text-align: center;
-      border: 1px solid white;
-    }
-	 .pagina {
-      width: 880px;
-      max-width: 1820px;
-     background: linear-gradient(135deg, #ff7a00 0%, #000000 100%);
 
+    .controle-botao {
+      width: 880px;
+      max-width: 1820px;
+      background: linear-gradient(135deg, #39ff14 0%, #000000 100%);
       padding: 30px;
       border-radius: 12px;
       margin: 1px 0;
       text-align: center;
       border: 1px solid white;
     }
-	
-	 /* Botão de logout */
+    
+    .pagina {
+      width: 880px;
+      max-width: 1820px;
+      background: linear-gradient(135deg, #ff7a00 0%, #000000 100%);
+      padding: 30px;
+      border-radius: 12px;
+      margin: 1px 0;
+      text-align: center;
+      border: 1px solid white;
+    }
+
+    /* Botão de logout */
     .logout-btn {      
        position: fixed;
       top: 20px;
@@ -443,7 +442,7 @@
       font-size: 14px;
       z-index: 100;
     }
-    
+
     .logout-btn:hover {
       background: #ff3742;
       transform: scale(1.05);
@@ -455,49 +454,49 @@
   <div id="loadingScreen" class="loading-screen">
     <div class="loading-spinner"></div>
   </div> 
-  
+
   <!-- Botão de logout CORRIGIDO -->
   <button id="logoutBtn" class="logout-btn">Sair</button>
-  
+
   <img src="img/Luzdaarea.png" width="864" height="150" style="margin-bottom: 30px;">
-  
+
   <div class="pagina">
     <h2>Páginas hospedadas no gitHub</h2>
     <!-- Botão de Logout -->
- <div>. </div>
-<button class="pagina-botao" onclick="window.location.href='../index.html'">
- Portão
-</button>
+    <div>. </div>
+    <button class="pagina-botao" onclick="window.location.href='../index.html'">
+      Portão
+    </button>
 
-<button class="pagina-botao" onclick="window.location.href='../index.html'">
- Bebedouro
-</button>
+    <button class="pagina-botao" onclick="window.location.href='../index.html'">
+      Bebedouro
+    </button>
 
-<button class="pagina-botao" onclick="window.location.href='area/index.html'">
-Luz Área
-</button>
+    <button class="pagina-botao" onclick="window.location.href='area/index.html'">
+      Luz Área
+    </button>
 
-<button class="pagina-botao" onclick="window.location.href='../index.html'">
- Inversor
-</button>
+    <button class="pagina-botao" onclick="window.location.href='../index.html'">
+      Inversor
+    </button>
 
-<button class="pagina-botao" onclick="window.location.href='../index.html'">
- Computador
-</button>
+    <button class="pagina-botao" onclick="window.location.href='../index.html'">
+      Computador
+    </button>
 
-<button class="pagina-botao" onclick="window.location.href='../index.html'">
- TV Sala
-</button>
+    <button class="pagina-botao" onclick="window.location.href='../index.html'">
+      TV Sala
+    </button>
 
-<button class="pagina-botao" onclick="window.location.href='../index.html'">
- Inversor
-</button>
+    <button class="pagina-botao" onclick="window.location.href='../index.html'">
+      Inversor
+    </button>
 
-<button class="pagina-botao" onclick="window.location.href='../index.html'">
- C. d'água
-</button>
+    <button class="pagina-botao" onclick="window.location.href='../index.html'">
+      C. d'água
+    </button>
   </div>
-  
+
   <div class="controle-botao" style="flex-direction: column; align-items: center;">
     <div style="display: flex; flex-direction: column; align-items: center; gap: 30px;">
       <div style="display: flex; justify-content: center; align-items: center; gap: 190px;">
@@ -544,16 +543,15 @@ Luz Área
     <div class="slider-container">
       <div class="slider-value" id="cameraValue">0°</div>
       <div class="slider-wrapper">
-       <input type="range" min="0" max="180" value="0" class="slider" id="cameraSlider">
-<div class="slider-labels">
-  <span class="slider-label">0°</span>
-  <span class="slider-label">90°</span>
-  <span class="slider-label">180°</span>
-</div>
+        <input type="range" min="0" max="180" value="0" class="slider" id="cameraSlider">
+        <div class="slider-labels">
+          <span class="slider-label">0°</span>
+          <span class="slider-label">90°</span>
+          <span class="slider-label">180°</span>
+        </div>
       </div>
     </div>
   </div>
-
 
   <div class="agendamentos">
     <h1>AGENDAMENTO 1</h1>
@@ -656,19 +654,34 @@ Luz Área
 
     // Controle do slider da câmera - CORRIGIDO para camera1
     let debounceTimer;
+    let isUserInteracting = false;
+
     cameraSlider.addEventListener('input', (e) => {
       const value = e.target.value;
       cameraValue.textContent = value + '°';
-      
+      isUserInteracting = true;
+
       // Debounce para evitar muitas atualizações no Firebase
       clearTimeout(debounceTimer);
       debounceTimer = setTimeout(() => {
         db.ref("/camera1").set(parseInt(value));
+        isUserInteracting = false;
       }, 100);
     });
 
     // Função para iniciar a aplicação após login
     function iniciarAplicacao() {
+      // CORREÇÃO: Carregar valor inicial do slider da câmera
+      db.ref("/camera1").once("value").then(snapshot => {
+        const cameraAngle = snapshot.val();
+        if (cameraAngle !== null && cameraAngle !== undefined) {
+          cameraSlider.value = cameraAngle;
+          cameraValue.textContent = cameraAngle + '°';
+        }
+      }).catch(error => {
+        console.error("Erro ao carregar valor da câmera:", error);
+      });
+
       function atualizarBotaoClasse(botao, ligado) {
         botao.classList.remove("ligado", "desligado", "pulse");
         botao.classList.add(ligado ? "ligado" : "desligado");
@@ -741,12 +754,15 @@ Luz Área
         const btnExtra2 = document.getElementById('btnExtra2');
         const btnPrincipal = document.getElementById('ligarDesligar');
 
-        // Atualizar slider da câmera - CORRIGIDO para camera1
+        // CORREÇÃO: Sincronização em tempo real do slider da câmera
         if (d.camera1 !== undefined && d.camera1 !== null) {
           const cameraAngle = parseInt(d.camera1);
-          if (cameraAngle >= 0 && cameraAngle <= 90) {
-            cameraSlider.value = cameraAngle;
-            cameraValue.textContent = cameraAngle + '°';
+          if (cameraAngle >= 0 && cameraAngle <= 180) {
+            // Só atualiza se o usuário não estiver interagindo com o slider
+            if (!isUserInteracting) {
+              cameraSlider.value = cameraAngle;
+              cameraValue.textContent = cameraAngle + '°';
+            }
           }
         }
 
@@ -815,4 +831,9 @@ Luz Área
     }
   </script>
 </body>
-</html>
+</html> 
+      
+
+    
+
+      
