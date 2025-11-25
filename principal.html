@@ -170,6 +170,7 @@
             0 0 0 #022,
             0 0 0 2px white;
     }
+	
 
     .pagina-botao:active {
         transform: translateY(6px) scale(0.98);
@@ -428,7 +429,13 @@
       margin: 1px 0;
       text-align: center;
       border: 1px solid white;
-    }
+    }	
+	
+	img {  
+  height: 98%;
+  object-fit: cover;  /* preenche sem distorcer, cortando bordas */
+  width: 880px; /* opcional */
+}
 
     /* Botão de logout */
     .logout-btn {      
@@ -456,11 +463,15 @@
   <div id="loadingScreen" class="loading-screen">
     <div class="loading-spinner"></div>
   </div> 
+<div class="pagina2">
+    <img src="img/Luzdaarea.png" class="banner">
 
+    <!-- <img src="img/Luzdaarea.png" width="800" height="150" style="margin-bottom: 30px;"> -->
+    </div>
   <!-- Botão de logout CORRIGIDO -->
   <button id="logoutBtn" class="logout-btn">Sair</button>
 
-  <img src="img/Luzdaarea.png" width="864" height="150" style="margin-bottom: 30px;">
+ 
 
   <div class="pagina">
     <h2>Páginas hospedadas no gitHub</h2>
