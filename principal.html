@@ -1,9 +1,16 @@
-
-   <!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
   <title>Controle Wemos</title>
+   <!-- Start WOWSlider.com HEAD section -->
+<link rel="stylesheet" type="text/css" href="engine1/style.css" />
+<script type="text/javascript" src="engine1/jquery.js"></script>
+<!-- End WOWSlider.com HEAD section -->
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
   <style>
     * {
       box-sizing: border-box;
@@ -18,7 +25,8 @@
       overflow-x: hidden;
     }
     body {
-      background: linear-gradient(90deg, rgba(24, 16, 163, 1) 0%, rgba(9, 44, 121, 1) 4%, rgba(0, 212, 255, 1) 100%);
+     background: linear-gradient(135deg, #ff7a00 0%, #000000 100%);
+
       color: white;
       font-family: Arial, sans-serif;
       min-height: 100vh;
@@ -32,151 +40,27 @@
       font-size: 48px;
       margin-bottom: 20px;
     }
-
-    /* Estilos do Slider da Câmera */
-    .camera-control {
-      width: 880px;
-      max-width: 1820px;
-      background: linear-gradient(304deg, rgba(2, 0, 36, 1) 5%, rgba(9, 9, 121, 1) 29%, rgba(0, 212, 255, 1) 100%);
-      padding: 30px;
-      border-radius: 12px;
-      margin: 15px 0;
-      text-align: center;
+    
+    /* Botão de logout */
+    .logout-btn {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: rgba(255, 255, 255, 0.2);
+      color: white;
       border: 1px solid white;
-    }
-
-    .camera-control h2 {
-      margin-bottom: 20px;
-      font-size: 32px;
-      color: #fff;
-    }
-
-    .slider-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 15px;
-    }
-
-    .slider-wrapper {
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .slider-value {
-      font-size: 28px;
-      font-weight: bold;
-      color: #00ff00;
-      background: rgba(0, 0, 0, 0.7);
       padding: 10px 20px;
       border-radius: 8px;
-      min-width: 80px;
-      text-align: center;
-    }
-
-    .slider {
-      -webkit-appearance: none;
-      width: 100%;
-      height: 25px;
-      background: linear-gradient(90deg, #ff0000, #ffff00, #00ff00);
-      border-radius: 15px;
-      outline: none;
-      opacity: 0.9;
-      transition: opacity 0.2s;
-      border: 2px solid #fff;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
-    }
-
-    .slider:hover {
-      opacity: 1;
-    }
-
-    .slider::-webkit-slider-thumb {
-      -webkit-appearance: none;
-      appearance: none;
-      width: 40px;
-      height: 40px;
-      background: #fff;
-      border-radius: 50%;
       cursor: pointer;
-      border: 3px solid #007bff;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+      font-size: 16px;
       transition: all 0.3s ease;
     }
-
-    .slider::-webkit-slider-thumb:hover {
-      transform: scale(1.1);
-      background: #007bff;
-      border-color: #fff;
-    }
-
-    .slider::-moz-range-thumb {
-      width: 40px;
-      height: 40px;
-      background: #fff;
-      border-radius: 50%;
-      cursor: pointer;
-      border: 3px solid #007bff;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
-    }
-
-    .slider-labels {
-      display: flex;
-      justify-content: space-between;
-      width: 100%;
-      margin-top: 5px;
-    }
-
-    .slider-label {
-      font-size: 18px;
-      color: #fff;
-      font-weight: bold;
-    }
-
-    /* Nova classe para os botões da seção de páginas */
-    .pagina-botao {
-        width: 150px;
-        height: 40px;
-        padding: 30px 95px;
-        background: #036;
-        color:#FFF;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        font-size: 30px;
-		font-weight: 900; /* negrito */
-        margin: 5px;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        text-align: center;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        transition: all 0.15s ease;
-        box-shadow: 
-            0 6px 0 #022,
-            0 0 0 2px white;
-        position: relative;
-    }
-
-    .pagina-botao:hover {
-        background: rgba(255, 255, 255, 0.3);
-        transform: translateY(6px);
-        box-shadow: 
-            0 0 0 #022,
-            0 0 0 2px white;
+    
+    .logout-btn:hover {
+      background: rgba(255, 255, 255, 0.3);
+      transform: scale(1.05);
     }
 	
-
-    .pagina-botao:active {
-        transform: translateY(6px) scale(0.98);
-        transition: all 0.1s ease;
-    }
-
     .status-button {
       width: 380px;
       height: 160px;
@@ -186,13 +70,13 @@
       font-size: 45px;
       border-radius: 12px;
       cursor: pointer;
-      transition: all 0.3s ease;          
+      transition: all 0.3s ease;
     }
     .ligado {
-     background: url(img/ligado.png) no-repeat left bottom;
+     background: url(img/ligado.png) no-repeat left bottom; /* cor do ligado */
     }
     .desligado {
-     background: url(img/desligado.png) no-repeat left bottom;
+     background: url(img/desligado.png) no-repeat left bottom; /* cor do botão desligado */
     }
     .status-button:hover {
       opacity: 0.8;
@@ -201,9 +85,9 @@
     .status-button:active {
       transform: scale(0.95);
     }
-
-    .status-button-led5 {
-      width: 400px;
+	
+	.status-button-led5 {
+      width: 380px;
       height: 160px;
       color: white;
       border: none;
@@ -214,10 +98,10 @@
       transition: all 0.3s ease;
     }
     .ligado-led5 {
-     background: url(img/ligado.png) no-repeat left bottom;
+     background: url(img/ligado.png) no-repeat left bottom; /* cor do ligado */
     }
     .desligado-led5 {
-     background: url(img/desligado.png) no-repeat left bottom;
+     background: url(img/desligado.png) no-repeat left bottom; /* cor do botão desligado */
     }
     .status-button-led5:hover {
       opacity: 0.8;
@@ -226,8 +110,8 @@
     .status-button-led5:active {
       transform: scale(0.95);
     }
-
-    .status-button-automatico {
+	
+	.status-button-automatico {
       width: 380px;
       height: 160px;
       color: white;
@@ -239,10 +123,10 @@
       transition: all 0.3s ease;
     }
     .ligado-automatico {
-     background: url(img/automatico.png) no-repeat left bottom;
+     background: url(img/automatico.png) no-repeat left bottom; /* cor do ligado */
     }
     .desligado-automatico {
-     background: url(img/manual.png) no-repeat left bottom;
+     background: url(img/manual.png) no-repeat left bottom; /* cor do botão desligado */
     }
     .status-button-automatico:hover {
       opacity: 0.8;
@@ -251,7 +135,7 @@
     .status-button-automatico:active {
       transform: scale(0.95);
     }
-
+	
     .clock {
       font-size: 60px;
       color: #0F0;
@@ -260,7 +144,8 @@
     .agendamentos, .info, .sensores {
       width: 880px;
       max-width: 1820px;
-      background: linear-gradient(135deg, #ff7a00 0%, #000000 100%);
+     background: linear-gradient(135deg, #ff7a00 0%, #000000 100%);
+
       padding: 30px;
       border-radius: 12px;
       margin: 15px 0;
@@ -277,7 +162,8 @@
       margin-top: 10px;
       margin-bottom: 5px;
     }
-
+	
+	/* Caixa de digitar horários */
     input[type="time"] {
       width: 30%;
       padding: 18px 30px;
@@ -304,6 +190,7 @@
     .info span.azul {
       color: #0C0;
     }
+    
     .sensores {
       background-color: black;
       color: #00ff00;
@@ -326,7 +213,7 @@
     .separador {
       height: 4px;
       margin: 30px 0;
-      background: linear-gradient(135deg, #ff7a00 0%, #000000 100%);
+      background: linear-gradient(90deg, #F33, #3a00ff, #F33);
       box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
       border-radius: 4px;
     }
@@ -336,7 +223,8 @@
       background-color: lime;
       border-radius: 4px;
     }
-
+	
+	/* Efeito de pulsação */
     @keyframes pulse {
       0% { box-shadow: 0 0 0 0 rgba(0, 255, 0, 0.7); }
       70% { box-shadow: 0 0 0 20px rgba(0, 255, 0, 0); }
@@ -377,192 +265,186 @@
     .pulse {
       animation: pulse 1s infinite;
     }
-
-    .rele-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    .rele-container label {
-      margin-bottom: -2px;
-      font-weight: bold;
-      font-size: 35px;
-      color: #fff;
-      transition: color 0.3s ease;
-    }
-
-    .rele-container .ligado + label {
-      color: #00bfff;
-    }
-
-    .rele-container .desligado + label {
-      color: #999;
-    }
-
-    .rele-container .ligado + label {
-      text-shadow: 0 0 15px rgba(0, 191, 255, 0.8);
-    }
-
-    .hidden {
-      display: none !important;
-    }
-
+    
     .controle-botao {
       width: 880px;
       max-width: 1820px;
-      background: linear-gradient(135deg, #39ff14 0%, #000000 100%);
+     background: linear-gradient(135deg, #ff7a00 0%, #000000 100%);
       padding: 30px;
       border-radius: 12px;
       margin: 1px 0;
       text-align: center;
       border: 1px solid white;
+    }
+
+    /* Loading screen */
+    .loading-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
     }
     
-    .pagina {
+    .loading-spinner {
+      border: 6px solid #f3f3f3;
+      border-top: 6px solid #1e3c72;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      animation: spin 1s linear infinite;
+    }
+    
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+	
+	/* Nova classe para os botões da seção de páginas */
+.pagina-botao {
+    width: 150px; /* Largura fixa */
+    height: 40px; /* Altura fixa */
+    padding: 10px 20px;
+    background: #033;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px;
+    margin: 5px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transition: all 0.3s ease;
+}
+
+.pagina-botao:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(1.05);
+}
+
+	 .pagina {
       width: 880px;
       max-width: 1820px;
-     background: linear-gradient(90deg,rgba(78, 78, 87, 1) 0%, rgba(100, 100, 135, 1) 22%, rgba(139, 193, 204, 1) 100%);
+     background: linear-gradient(135deg, #ff7a00 0%, #000000 100%);
 
       padding: 30px;
       border-radius: 12px;
       margin: 1px 0;
       text-align: center;
       border: 1px solid white;
-    }	
-	
-	img {  
-  height: 98%;
-  object-fit: cover;  /* preenche sem distorcer, cortando bordas */
-  width: 880px; /* opcional */
-}
-
-    /* Botão de logout */
-    .logout-btn {      
-       position: fixed;
-      top: 20px;
-      right: 20px;
-      padding: 10px 20px;
-      background: #ff4757;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      font-size: 14px;
-      z-index: 100;
     }
 
-    .logout-btn:hover {
-      background: #ff3742;
-      transform: scale(1.05);
-    }
   </style>
 </head>
 <body>
   <!-- Loading Screen -->
   <div id="loadingScreen" class="loading-screen">
     <div class="loading-spinner"></div>
-  </div> 
-<div class="pagina2">
-    <img src="img/Luzdaarea.png" class="banner">
+  </div>
 
-    <!-- <img src="img/Luzdaarea.png" width="800" height="150" style="margin-bottom: 30px;"> -->
-    </div>
-  <!-- Botão de logout CORRIGIDO -->
+  <!-- Botão de Logout -->
   <button id="logoutBtn" class="logout-btn">Sair</button>
-
- 
-
+  
+  <!-- Start WOWSlider.com BODY section -->
+<div id="wowslider-container1">
+<div class="ws_images"><ul>
+		<li><img src="data1/images/luzdaarea.png" alt="1" title="." id="wows1_0"/></li>
+		<li><a href="http://wowslider.net"><img src="data1/images/luzdaarea1.png" alt="slider" title="." id="wows1_1"/></a></li>
+		<li><img src="data1/images/luzdaarea2.png" alt="Luzdaarea2"  id="wows1_2"/></li>
+	</ul></div>
+	<div class="ws_bullets"><div>
+		<a href="#" title="."><span><img src="data1/tooltips/luzdaarea.png" alt="1"/>1</span></a>
+		<a href="#" title="."><span><img src="data1/tooltips/luzdaarea1.png" alt="2"/>2</span></a>
+		<a href="#" title="."><span><img src="data1/tooltips/luzdaarea2.png" alt="3"/>3</span></a>
+	</div></div><div class="ws_script" style="position:absolute;left:-99%"><a href="http://wowslider.net">bootstrap slideshow</a> by WOWSlider.com v8.8</div>
+<div class="ws_shadow"></div>
+</div>	
+<script type="text/javascript" src="engine1/wowslider.js"></script>
+<script type="text/javascript" src="engine1/script.js"></script>
+<!-- End WOWSlider.com BODY section -->
+  
   <div class="pagina">
     <h2>Páginas hospedadas no gitHub</h2>
     <!-- Botão de Logout -->
-    <div>. </div>
-    <button class="pagina-botao" onclick="window.location.href='../index.html'">
-      Portão
-    </button>
+ <div>. </div>
+<button class="pagina-botao" onclick="window.location.href='../index.html'">
+ Portão
+</button>
 
-    <button class="pagina-botao" onclick="window.location.href='../index.html'">
-      Bebedouro
-    </button>
+<button class="pagina-botao" onclick="window.location.href='../index.html'">
+ Bebedouro
+</button>
 
-    <button class="pagina-botao" onclick="window.location.href='area/index.html'">
-      Luz Área
-    </button>
+<button class="pagina-botao" onclick="window.location.href='area/index.html'">
+Luz Área
+</button>
 
-    <button class="pagina-botao" onclick="window.location.href='../index.html'">
-      Inversor
-    </button>
+<button class="pagina-botao" onclick="window.location.href='../index.html'">
+ Inversor
+</button>
 
-    <button class="pagina-botao" onclick="window.location.href='computador/index.html'">
-      Computador
-    </button>
+<button class="pagina-botao" onclick="window.location.href='../index.html'">
+ Computador
+</button>
 
-    <button class="pagina-botao" onclick="window.location.href='sala/index.html'">
-      TV Sala
-    </button>
+<button class="pagina-botao" onclick="window.location.href='../index.html'">
+ TV Sala
+</button>
 
-    <button class="pagina-botao" onclick="window.location.href='../index.html'">
-      Inversor
-    </button>
+<button class="pagina-botao" onclick="window.location.href='../index.html'">
+ Inversor
+</button>
 
-    <button class="pagina-botao" onclick="window.location.href='caixa/index.html'">
-      C. d'água
-    </button>
+<button class="pagina-botao" onclick="window.location.href='../index.html'">
+ C. d'água
+</button>
+
+<button class="pagina-botao" onclick="window.location.href='../index.html'">
+ Canteiro
+</button>
+
+<button class="pagina-botao" onclick="window.location.href='../index.html'">
+Tutorial
+</button>
+
+    
   </div>
-
+  
   <div class="controle-botao" style="flex-direction: column; align-items: center;">
     <div style="display: flex; flex-direction: column; align-items: center; gap: 30px;">
       <div style="display: flex; justify-content: center; align-items: center; gap: 190px;">
-
+      
         <button id="ligarDesligar" class="status-button desligado-automatico"></button>
-
+        
         <div style="display: flex; flex-direction: column; align-items: center;">
           <div id="relogio" class="clock">00:00:00</div>
           <div id="releStatus" class="automatico">Lâmpada: Desligada</div>
         </div>
       </div>
     </div>
-
-    <!-- Linha dos dois primeiros relés -->
     <div style="display: flex; gap: 60px; margin-top: 20px;">
-      <div class="rele-container">
-        <label for="btnLed5">LUZ CANTEIRO</label>
-        <button id="btnLed5" class="status-button desligado"></button>
-      </div>
-
-      <div class="rele-container">
-        <label for="btnLed">Câmera</label>
-        <button id="btnLed" class="status-button desligado"></button>
-      </div>
+    
+     <!-- botao lampada-->
+     <button id="btnLed5" class="status-button desligado"></button>
+     
+      
+      
+      <button id="btnLed" class="status-button desligado"></button>
     </div>
-
-    <!-- Linha dos dois relés extras -->
+    <!-- Colocando os novos botões abaixo de LED e LED1 -->
     <div style="display: flex; gap: 60px; margin-top: 20px;">
-      <div class="rele-container">
-        <label for="btnExtra1">Portão</label>
-        <button id="btnExtra1" class="status-button desligado"></button>
-      </div>
-
-      <div class="rele-container">
-        <label for="btnExtra2">Rele</label>
-        <button id="btnExtra2" class="status-button desligado"></button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Controle da Câmera - CORRIGIDO para camera1 -->
-  <div class="camera-control">
-    <h2>CONTROLE DA CÂMERA 1</h2>
-    <div class="slider-container">
-      <div class="slider-value" id="cameraValue">0°</div>
-      <div class="slider-wrapper">
-        <input type="range" min="0" max="180" value="0" class="slider" id="cameraSlider">
-        <div class="slider-labels">
-          <span class="slider-label">0°</span>
-          <span class="slider-label">90°</span>
-          <span class="slider-label">180°</span>
-        </div>
-      </div>
+      <button id="btnExtra1" class="status-button desligado"></button>
+      <button id="btnExtra2" class="status-button desligado"></button>
     </div>
   </div>
 
@@ -575,7 +457,6 @@
       </div>
       <input type="time" id="ligarHorario">
     </div>
-
     <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;">
       <div style="display: flex; align-items: center; gap: 15px;">
         <div class="caixa"></div>
@@ -583,9 +464,7 @@
       </div>
       <input type="time" id="desligarHorario">
     </div>
-
     <div class="separador"></div>
-
     <h1 class="agendamento2">AGENDAMENTO 2</h1>
     <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;">
       <div style="display: flex; align-items: center; gap: 15px;">
@@ -594,7 +473,6 @@
       </div>
       <input type="time" id="ligarHorario2">
     </div>
-
     <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;">
       <div style="display: flex; align-items: center; gap: 15px;">
         <div class="caixa"></div>
@@ -618,83 +496,52 @@
     <div>LDR: <span id="LDR"></span></div>
   </div>
 
-  <!-- Firebase SDK -->
-  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
-
   <script>
+    // Configuração do Firebase
     const firebaseConfig = {
-      apiKey: "AIzaSyAIRUVzpMW2sHSE3TyDBCYsQqNatjzl7OE",
-      authDomain: "portao-85a3c.firebaseapp.com",
-      databaseURL: "https://portao-85a3c-default-rtdb.firebaseio.com",
-      projectId: "portao-85a3c",
-      storageBucket: "portao-85a3c.firebasestorage.app",
-      messagingSenderId: "364450852654",
-      appId: "1:364450852654:web:f9fbe5db3d2d76eff6d4bf",
-      measurementId: "G-8JD6STQ59P"
+    // 🔧 Substitua por suas credenciais
+  apiKey: "AIzaSyDK6BihUGbjJAUCog5ar10xrLIEoW3DrpU",
+  authDomain: "luzdaarea.firebaseapp.com",
+  databaseURL: "https://luzdaarea-default-rtdb.firebaseio.com",
+  projectId: "luzdaarea",
+  storageBucket: "luzdaarea.firebasestorage.app",
+  messagingSenderId: "176018884427",
+  appId: "1:176018884427:web:2ad49bf76602f505830ace",
+  measurementId: "G-8PX143ZRBZ"
     };
 
+    // Inicializar Firebase
     firebase.initializeApp(firebaseConfig);
-    const db = firebase.database();
     const auth = firebase.auth();
+    const db = firebase.database();
 
-    // CORREÇÃO: Usar o ID correto do botão
+    // Elementos da interface
+    const loadingScreen = document.getElementById('loadingScreen');
     const logoutBtn = document.getElementById('logoutBtn');
-    const cameraSlider = document.getElementById('cameraSlider');
-    const cameraValue = document.getElementById('cameraValue');
 
-    // Verificar estado de autenticação
+    // Verificar autenticação
     auth.onAuthStateChanged((user) => {
-      if (!user) {
-        // Usuário não está logado - redirecionar para index.html
-        window.location.href = 'index.html';
+      if (user) {
+        // Usuário autenticado, mostrar conteúdo
+        loadingScreen.style.display = 'none';
+        initializeApp();
       } else {
-        // Usuário está logado - iniciar aplicação
-        iniciarAplicacao();
+        // Usuário não autenticado, redirecionar para login
+        window.location.href = 'index.html';
       }
     });
 
-    // CORREÇÃO: Logout com o elemento correto
+    // Logout
     logoutBtn.addEventListener('click', () => {
       auth.signOut().then(() => {
-        console.log('Usuário deslogado com sucesso');
         window.location.href = 'index.html';
       }).catch((error) => {
         console.error('Erro ao fazer logout:', error);
       });
     });
 
-    // Controle do slider da câmera - CORRIGIDO para camera1
-    let debounceTimer;
-    let isUserInteracting = false;
-
-    cameraSlider.addEventListener('input', (e) => {
-      const value = e.target.value;
-      cameraValue.textContent = value + '°';
-      isUserInteracting = true;
-
-      // Debounce para evitar muitas atualizações no Firebase
-      clearTimeout(debounceTimer);
-      debounceTimer = setTimeout(() => {
-        db.ref("/camera1").set(parseInt(value));
-        isUserInteracting = false;
-      }, 100);
-    });
-
-    // Função para iniciar a aplicação após login
-    function iniciarAplicacao() {
-      // CORREÇÃO: Carregar valor inicial do slider da câmera
-      db.ref("/camera1").once("value").then(snapshot => {
-        const cameraAngle = snapshot.val();
-        if (cameraAngle !== null && cameraAngle !== undefined) {
-          cameraSlider.value = cameraAngle;
-          cameraValue.textContent = cameraAngle + '°';
-        }
-      }).catch(error => {
-        console.error("Erro ao carregar valor da câmera:", error);
-      });
-
+    // Inicializar a aplicação após autenticação
+    function initializeApp() {
       function atualizarBotaoClasse(botao, ligado) {
         botao.classList.remove("ligado", "desligado", "pulse");
         botao.classList.add(ligado ? "ligado" : "desligado");
@@ -728,7 +575,7 @@
       });
 
       document.getElementById('btnExtra1').addEventListener('click', () => {
-        const ref = db.ref("/led1");
+        const ref = db.ref("/led2");
         ref.once("value").then(snapshot => {
           const novo = snapshot.val() === "0" ? "1" : "0";
           ref.set(novo);
@@ -761,57 +608,54 @@
         const d = snapshot.val();
         if (!d) return;
 
+        //visualizar horários agendados
         const btnLed5 = document.getElementById('btnLed5');
         const btnLed1 = document.getElementById('btnLed');
         const btnExtra1 = document.getElementById('btnExtra1');
         const btnExtra2 = document.getElementById('btnExtra2');
         const btnPrincipal = document.getElementById('ligarDesligar');
-
-        // CORREÇÃO: Sincronização em tempo real do slider da câmera
-        if (d.camera1 !== undefined && d.camera1 !== null) {
-          const cameraAngle = parseInt(d.camera1);
-          if (cameraAngle >= 0 && cameraAngle <= 180) {
-            // Só atualiza se o usuário não estiver interagindo com o slider
-            if (!isUserInteracting) {
-              cameraSlider.value = cameraAngle;
-              cameraValue.textContent = cameraAngle + '°';
-            }
-          }
-        }
-
+        
+        // Preencher os horários agendados nos campos input em tempo real
         document.getElementById("ligarHorario").value = d.ligarHorario || "";
         document.getElementById("desligarHorario").value = d.desligarHorario || "";
         document.getElementById("ligarHorario2").value = d.ligarHorario2 || "";
         document.getElementById("desligarHorario2").value = d.desligarHorario2 || "";
 
+        // Atualiza botão principal com base no valor /ligarDesligar
         if (d.ligarDesligar !== undefined) {
           atualizarBotaoAutomatico(d.ligarDesligar);
           document.getElementById('releStatus').innerText =
-            d.ligarDesligar == 2 ? "Programado" : "Manual";
+            d.ligarDesligar == 2 ? "Modo: Programado" : "Modo: Manual";
         }
 
-        if (d.led2 !== undefined) {
-          const ligado = d.led2 === "0";
+        // LED5 (btnLed5)
+        if (d.rele !== undefined) {
+          const ligado = d.rele === "0";
           btnLed5.classList.remove("vermelho", "ligado", "desligado");
           btnLed5.classList.add(ligado ? "vermelho" : "desligado");
           if (ligado) btnLed5.classList.add("ligado");
           if (!ligado) btnLed1.classList.add("pulse");
         }
 
+        // LED1 (btnLed1)
         if (d.led !== undefined) {
-          const ligado = d.led === "1";
+          const ligado = d.led === "1"; // só TRUE se estiver ligado
           btnLed.classList.remove("ligado", "desligado", "pulse");
           btnLed.classList.add(ligado ? "desligado" : "ligado");
+
+          // Se estiver desligado (valor "0" do Firebase), adiciona a animação pulse
           if (!ligado) btnLed.classList.add("pulse");
         }
 
-        if (d.led1 !== undefined) {
-          const ligado = d.led1 === "1";
+        // Extra1 (btnExtra1)
+        if (d.led2 !== undefined) {
+          const ligado = d.led2 === "1";
           btnExtra1.classList.remove("ligado", "desligado", "pulse");
           btnExtra1.classList.add(ligado ? "desligado" : "ligado");
           if (!ligado) btnExtra1.classList.add("pulse");
         }
 
+        // Extra2 (btnExtra2)
         if (d.led3 !== undefined) {
           const ligado = d.led3 === "1";
           btnExtra2.classList.remove("ligado", "desligado", "pulse");
@@ -819,6 +663,7 @@
           if (!ligado) btnExtra2.classList.add("pulse");
         }
 
+        // Sensor data
         document.getElementById("Temperature").innerText = d.Temperature || "";
         document.getElementById("Humidity").innerText = d.Humidity || "";
         document.getElementById("LDR").innerText = d.LDR || "";
@@ -842,20 +687,6 @@
       }
       setInterval(atualizarRelogio, 1000);
     }
-
-	  var senha = prompt("Digite a senha:");
-  if(senha !== "mariano75"){
-    document.body.innerHTML = "<h2>Acesso negado</h2>";
-  }
   </script>
 </body>
-</html> 
-      
-
-    
-
-      
-
-
-
-
+</html>
